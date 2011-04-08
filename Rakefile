@@ -25,3 +25,4 @@ file Pacer::Dex::JAR_PATH => 'pom.xml' do
 end
 
 task :build => Pacer::Dex::JAR_PATH
+task :install => :build
