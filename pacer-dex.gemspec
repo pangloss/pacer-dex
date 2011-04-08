@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{Dex jars and related code for Pacer}
   s.description = s.summary
 
-  s.add_dependency 'pacer-graph', "~> #{Pacer::Dex::VERSION.split('.')[0,2].join('.')}"
+  s.add_dependency 'pacer', "~> 0.7.0"
 
   s.rubyforge_project = "pacer-dex"
 
