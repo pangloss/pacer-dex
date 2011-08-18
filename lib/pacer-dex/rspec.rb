@@ -1,4 +1,4 @@
-class Rspec::GraphRunner
+class RSpec::GraphRunner
   module Dex
     def all(usage_style = :read_write, indices = true, &block)
       super
