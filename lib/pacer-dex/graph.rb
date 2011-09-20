@@ -20,10 +20,12 @@ module Pacer
   # Extend the java class imported from blueprints.
   class DexGraph
     include GraphMixin
+    include GraphIndicesMixin
     include GraphTransactionsStub
     include ManagedTransactionsMixin
     include Pacer::Core::Route
     include Pacer::Core::Graph::GraphRoute
+    include Pacer::Core::Graph::GraphIndexRoute
 
     # Override to return an enumeration-friendly array of vertices.
     def get_vertices
@@ -35,34 +37,16 @@ module Pacer
       getEdges.to_enum(:map).to_route(:graph => self, :element_type => :edge)
     end
 
-    def element_type(et = nil)
-      return nil unless et
-      if et == DexVertex or et == DexEdge or et == DexElement
-        et
-      else
-        case et
-        when :vertex, com.tinkerpop.blueprints.pgm.Vertex, VertexMixin
-          DexVertex
-        when :edge, com.tinkerpop.blueprints.pgm.Edge, EdgeMixin
-          DexEdge
-        when :mixed, com.tinkerpop.blueprints.pgm.Element, ElementMixin
-          DexElement
-        when :object
-          Object
-        else
-          if et == Object
-            Object
-          elsif et == DexVertex.java_class.to_java
-            DexVertex
-          elsif et == DexEdge.java_class.to_java
-            DexEdge
-          elsif et == index_class(:vertex)
-            DexVertex
-          else
-            raise ArgumentError, 'Element type may be one of :vertex or :edge'
-          end
-        end
-      end
+    def element_class
+      DexElement
+    end
+
+    def vertex_class
+      DexVertex
+    end
+
+    def edge_class
+      DexEdge
     end
 
     def index_class(et = nil)
