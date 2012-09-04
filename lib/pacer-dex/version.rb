@@ -4,7 +4,7 @@ module Pacer
     if not defined? ENABLED
       ENABLED = ENV_JAVA['java.runtime.version'] =~ /^1\.6\./
     end
-    VERSION = "2.0.0.pre"
+    VERSION = "2.0.0"
     JAR = "pacer-dex-#{ VERSION }-standalone.jar"
     JAR_PATH = "lib/#{ JAR }"
     BLUEPRINTS_VERSION = "2.1.0"
