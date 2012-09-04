@@ -27,6 +27,4 @@ class RSpec::GraphRunner
       @dex_graph2 = Pacer.dex(path2)
     end
   end
-
-  include Dex
 end
