@@ -1,6 +1,10 @@
 module Pacer
   module Dex
-    VERSION = "2.0.0"
+    # Dex segfaults for me under Java 1.7... YMMV
+    if not defined? ENABLED
+      ENABLED = ENV_JAVA['java.runtime.version'] =~ /^1\.6\./
+    end
+    VERSION = "2.0.0.pre"
     JAR = "pacer-dex-#{ VERSION }-standalone.jar"
     JAR_PATH = "lib/#{ JAR }"
     BLUEPRINTS_VERSION = "2.1.0"
