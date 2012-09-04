@@ -5,7 +5,7 @@ require "pacer-dex/version"
 Gem::Specification.new do |s|
   s.name        = "pacer-dex"
   s.version     = Pacer::Dex::VERSION
-  s.platform    = 'jruby'
+  s.platform    = 'java'
   s.authors     = ["Darrick Wiebe"]
   s.email       = ["darrick@innatesoftware.com"]
   s.homepage    = "http://sparsity-technologies.com"
