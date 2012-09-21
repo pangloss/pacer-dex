@@ -15,63 +15,31 @@ module Pacer::Dex
         value = nil if value == ''
         value
       when Fixnum
-        value.to_java :int
+        value.to_java :int rescue dump value
       when Float
         value.to_java :double
       when Bignum
-        value.to_yaml
+        dump value
       when true, false
         value.to_java :boolean
-      when Array
-        if value.length == 0
-          value_type = Fixnum
-        else
-          value_type = value.first.class
-          value_type = TrueClass if value_type == FalseClass
-          value.each do |v|
-            if value_type != v.class or (value == true or value == false and value_type == TrueClass)
-              value_type = nil
-              break
-            end
-          end
-        end
-        case value_type
-        when Fixnum
-          value.to_java :int
-        when Float
-          value.to_java :double
-        when TrueClass
-          value.to_java :boolean
-        when String
-          value.to_java :string
-        else
-          value.to_yaml
-        end
       else
-        value.to_yaml
+        dump value
       end
     end
 
-    if 'x'.to_yaml[0, 5] == '%YAML'
-      def self.decode_property(value)
-        if value.is_a? String and value[0, 5] == '%YAML'
-          YAML.load(value)
-        elsif value.is_a? ArrayJavaProxy
-          value.to_a
-        else
-          value
-        end
+    def self.decode_property(value)
+      if value.is_a? String and value[0, 1] == ' '
+        YAML.load(value[1...-1])
+      else
+        value
       end
-    else
-      def self.decode_property(value)
-        if value.is_a? String and value[0, 3] == '---'
-          YAML.load(value)
-        elsif value.is_a? ArrayJavaProxy
-          value.to_a
-        else
-          value
-        end
-      end
+    end
+
+    private
+
+    def self.dump(value)
+      # Leading space signifies a binary. It would otherwise be stripped.
+      " #{ YAML.dump value }"
     end
   end
 end
