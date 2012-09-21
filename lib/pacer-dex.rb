@@ -9,6 +9,7 @@ if Pacer::Dex::ENABLED
   require Pacer::Dex::JAR
 
   require 'pacer-dex/graph'
+  require 'pacer-dex/encoder'
 else
   puts "Dex has been disabled."
   puts

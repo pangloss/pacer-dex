@@ -17,7 +17,7 @@ module Pacer
         g.blueprints_graph.shutdown
         Pacer.open_graphs[path] = nil
       end
-      PacerGraph.new(Pacer::YamlEncoder, open, shutdown)
+      PacerGraph.new(Pacer::Dex::Encoder, open, shutdown)
     end
   end
 end
